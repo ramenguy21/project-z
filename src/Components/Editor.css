@@ -1,0 +1,14 @@
+.editor-frame {
+    background-color: grey;
+    width : 256px;
+    height: 512px;
+    background-image: url("../Assets/body.jpg");
+    border : 1px solid black;
+}
+
+.point {
+    background-color: blue;
+    width : 20px;
+    height: 20px;
+    border-radius: 100%;
+}
