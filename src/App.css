@@ -1,9 +1,10 @@
-.App {
-  background-color: palegreen;
+html, body{
+  margin: 0;
+  height: 100% !important;
 }
 
 h1{
-  color : white;
+  color : black;
   text-align: center;
 }
 
@@ -11,7 +12,6 @@ h1{
   height: 40vmin;
   pointer-events: none;
 }
-
 
 .App-link {
   color: #61dafb;

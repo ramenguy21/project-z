@@ -3,8 +3,6 @@ import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import db from '../../fbConfig/firebase'
 
-var docref
-
 class SignUp extends React.Component {
 
     constructor(props) {

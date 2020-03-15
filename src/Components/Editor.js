@@ -1,6 +1,7 @@
 import React from 'react'
 import "./Editor.css"
 import Point from "./Point"
+import FbDropdown from './FirebaseDropdown'
 import Draggable from 'react-draggable'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
@@ -8,6 +9,8 @@ import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import Form from 'react-bootstrap/Form'
+import db from '../fbConfig/firebase'
+
 
 var pointList = [];
 var _newpointlist = []
@@ -18,8 +21,10 @@ class Editor extends React.Component {
 
     constructor(props) {
         super(props)
-        this.state = { state_point_list: [],
-                        d_name : "" }
+        this.state = {
+            state_point_list: [],
+            d_name: ""
+        }
         this.GridRef = React.createRef()
         this.NumberList = this.NumberList.bind(this)
     }
@@ -40,7 +45,7 @@ class Editor extends React.Component {
 
     NumberList() {
         const listitems = this.state.state_point_list.map((x, index) =>
-            <Draggable bounds={{ top: -1 * index * 20, left: 0, right: 480, bottom: 480 - index * 20 }}>
+            <Draggable key={index} defaultPosition={{ x: 125, y: 125 }} bounds={{ top: -1 * index * 20, left: 0, right: 480, bottom: 480 - index * 20 }}>
                 <div>
                     <Point></Point>
                 </div>
@@ -54,9 +59,19 @@ class Editor extends React.Component {
         this.setState({
             state_point_list: []
         })
-       // this.setState({
-       //     state_point_list: _newpointlist
-       // })//this will just simply cause a re-render of the NumberList so it's cool
+        let citiesRef = db.collection('points');
+        let allCities = citiesRef.get()
+            .then(snapshot => {
+                snapshot.forEach(doc => {
+                    console.log(doc.id);
+                });
+            })
+            .catch(err => {
+                console.log('Error getting documents', err);
+            });
+        // this.setState({
+        //     state_point_list: _newpointlist
+        // })//this will just simply cause a re-render of the NumberList so it's cool
         //render the points according to _newpointlist under the editor-frame 
         //listitems = []
         //while also emptying the list somehow ???
@@ -68,7 +83,12 @@ class Editor extends React.Component {
             _newpointlist[index] = this.GridRef.current.children[index].style.transform;
 
         }
-        console.log(this.state)
+        let data = {
+            name: this.state.d_name,
+            pointlist: _newpointlist //remove the new pointlist and update state directly
+        }
+        //console.log(this.state)
+        var docRef = db.collection('points').doc(this.state.d_name).set(data)
     }
 
 
@@ -97,11 +117,7 @@ class Editor extends React.Component {
                                     </div>
                                 </Col>
                                 <Col sm="4">
-                                    <Form.Control as="select">
-                                        <option>Disease 1</option>
-                                        <option>Disease 2</option>
-                                        <option>Disease 3</option>
-                                    </Form.Control>
+                                    <FbDropdown></FbDropdown>
                                     <Button className="mt-2" onClick={this.loadDisease.bind(this)}>Load</Button>
                                 </Col>
                             </Row>
