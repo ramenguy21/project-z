@@ -23,7 +23,8 @@ class Editor extends React.Component {
         super(props)
         this.state = {
             state_point_list: [],
-            d_name: ""
+            d_name: "",
+            load_layout : ""
         }
         this.GridRef = React.createRef()
         this.NumberList = this.NumberList.bind(this)
@@ -59,16 +60,7 @@ class Editor extends React.Component {
         this.setState({
             state_point_list: []
         })
-        let citiesRef = db.collection('points');
-        let allCities = citiesRef.get()
-            .then(snapshot => {
-                snapshot.forEach(doc => {
-                    console.log(doc.id);
-                });
-            })
-            .catch(err => {
-                console.log('Error getting documents', err);
-            });
+        console.log(this.state)
         // this.setState({
         //     state_point_list: _newpointlist
         // })//this will just simply cause a re-render of the NumberList so it's cool
@@ -88,7 +80,7 @@ class Editor extends React.Component {
             pointlist: _newpointlist //remove the new pointlist and update state directly
         }
         //console.log(this.state)
-        var docRef = db.collection('points').doc(this.state.d_name).set(data)
+        db.collection('points').doc(this.state.d_name).set(data)
     }
 
 
@@ -117,7 +109,9 @@ class Editor extends React.Component {
                                     </div>
                                 </Col>
                                 <Col sm="4">
-                                    <FbDropdown></FbDropdown>
+                                    <select id="load_layout" onChange={this.handleChange}>
+                                        <FbDropdown></FbDropdown>
+                                    </select>
                                     <Button className="mt-2" onClick={this.loadDisease.bind(this)}>Load</Button>
                                 </Col>
                             </Row>

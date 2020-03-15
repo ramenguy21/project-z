@@ -24,7 +24,7 @@ class SignUp extends React.Component {
         e.preventDefault()
         console.log(this.state)
         let docRef = db.collection('users').doc(this.state.userName)
-        let setAda = docRef.set(this.state)
+        docRef.set(this.state)
     }
 
     render() {

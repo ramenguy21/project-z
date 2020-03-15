@@ -10,8 +10,10 @@ class FbDropdown extends React.Component {
             selected_value: "",
             diseaseList: []
         }
+        this.diseaseListR = this.diseaseListR.bind(this)
     }
 
+    ///TODO : mayhaps add dynamic updating ?
     async componentDidMount() {
         try {
             db.collection('points').get()
@@ -19,6 +21,10 @@ class FbDropdown extends React.Component {
                     snapshot.forEach(doc => {
                         dsList.push(doc.id);
                     });
+                    this.setState({
+                        diseaseList: dsList
+                    })
+                    console.log(this.state.diseaseList)//LET IT BE FUCKING KNOWN THAT THIS TOOK ME 2 HOURS TO IMPLEMENT KUTTE KA BACHA
                 })
                 .catch(err => {
                     console.log('Error getting documents', err);
@@ -28,24 +34,20 @@ class FbDropdown extends React.Component {
         catch (error) {
             console.log(error)
         }
-        console.log(dsList)
+
     }
 
     diseaseListR() {
-        const x = dsList.map((y) =>
-            <option>{y}</option>
+        const x = this.state.diseaseList.map((y) =>
+            <option key={y}>{y}</option>
         );
 
-        return(x)
+        return (x)
     }
 
     render() {
         return (
-            <div>
-                <select>
-                   <this.diseaseListR></this.diseaseListR>
-                </select>
-            </div >
+            <this.diseaseListR></this.diseaseListR>
         )
     }
 }
