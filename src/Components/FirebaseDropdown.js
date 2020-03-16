@@ -13,6 +13,7 @@ class FbDropdown extends React.Component {
         this.diseaseListR = this.diseaseListR.bind(this)
     }
 
+    //possible to make this more optimized maybe?
     ///TODO : mayhaps add dynamic updating ?
     async componentDidMount() {
         try {
@@ -38,7 +39,7 @@ class FbDropdown extends React.Component {
     }
 
     diseaseListR() {
-        const x = this.state.diseaseList.map((y) =>
+        var x = this.state.diseaseList.map((y) =>
             <option key={y}>{y}</option>
         );
 

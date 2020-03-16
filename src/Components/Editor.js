@@ -24,17 +24,18 @@ class Editor extends React.Component {
         this.state = {
             state_point_list: [],
             d_name: "",
-            load_layout : ""
+            load_layout: ""//assign a default value to this btw, else the code breaks
         }
         this.GridRef = React.createRef()
         this.NumberList = this.NumberList.bind(this)
     }
 
     newPoint() {
-        pointList.push(new Point())
+        var _pointObj = { x: 25, y: 25 }
+        pointList.push(_pointObj)
         this.setState({
             state_point_list:
-                pointList//this causes a re-render so do not remove???
+                pointList//this is the thing that causes a re-render so do not remove
         })
     }
 
@@ -45,8 +46,8 @@ class Editor extends React.Component {
     }
 
     NumberList() {
-        const listitems = this.state.state_point_list.map((x, index) =>
-            <Draggable key={index} defaultPosition={{ x: 125, y: 125 }} bounds={{ top: -1 * index * 20, left: 0, right: 480, bottom: 480 - index * 20 }}>
+        const listitems = this.state.state_point_list.map((x, index) =>//replace x pls
+            <Draggable key={index} defaultPosition={{ x: x.x, y: x.y }} bounds={{ top: -1 * index * 20, left: 0, right: 480, bottom: 480 - index * 20 }}>
                 <div>
                     <Point></Point>
                 </div>
@@ -56,14 +57,30 @@ class Editor extends React.Component {
         return (listitems);
     }
 
-    loadDisease() {
-        this.setState({
-            state_point_list: []
-        })
-        console.log(this.state)
-        // this.setState({
-        //     state_point_list: _newpointlist
-        // })//this will just simply cause a re-render of the NumberList so it's cool
+    async loadDisease() {
+        var int_map = []
+        var coord
+        var v
+        try {
+            //map doesn't work for some reason
+            db.collection('points').doc(this.state.load_layout).get().then(doc => {
+                for (let i = 0; i < doc.data().pointlist.length; i++) {
+                    var x = doc.data().pointlist[i]
+                    v = x.match(/\d+/g)
+                    coord = { x: parseInt(v[0]), y: parseInt(v[1]) }
+                    //console.log(coord)
+                    int_map[i] = coord                 
+                }
+            })
+            this.setState({
+                state_point_list: int_map
+            })
+        }
+        catch (error) {
+
+        }
+
+        //this will just simply cause a re-render of the NumberList so it's cool
         //render the points according to _newpointlist under the editor-frame 
         //listitems = []
         //while also emptying the list somehow ???
@@ -109,9 +126,11 @@ class Editor extends React.Component {
                                     </div>
                                 </Col>
                                 <Col sm="4">
-                                    <select id="load_layout" onChange={this.handleChange}>
-                                        <FbDropdown></FbDropdown>
-                                    </select>
+                                    <div>
+                                        <select id="load_layout" onChange={this.handleChange}>
+                                            <FbDropdown></FbDropdown>
+                                        </select>
+                                    </div>
                                     <Button className="mt-2" onClick={this.loadDisease.bind(this)}>Load</Button>
                                 </Col>
                             </Row>
