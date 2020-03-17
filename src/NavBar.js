@@ -18,6 +18,9 @@ class NavBar extends React.Component {
                     <li className="nav-item">
                         <Link className="mr-2 nav-link" to='/appointment'>Appointment Form</Link>
                     </li>
+                    <li className="nav-item">
+                        <Link className="mr-2 nav-link" to='/table'>Data Table</Link>
+                    </li>
                 </ul>
             </nav>
         )

@@ -14,7 +14,7 @@ class SignIn extends React.Component {
 
     handleChange = (e) => {
         this.setState({
-            [e.target.id] : e.target.value
+            [e.target.id]: e.target.value
         })
     }
 
@@ -28,17 +28,19 @@ class SignIn extends React.Component {
             <div>
                 <Container>
                     <Form onSubmit={this.handleSubmit}>
-                        <h5 className="text-light">Sign In</h5>
-                        <div className="form-group">
-                            <label htmlFor="email">Email</label>
-                            <input className="form-control" type="email" id="email" onChange={this.handleChange}></input>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="password">Password</label>
-                            <input className="form-control" type="password" id="password" onChange={this.handleChange}></input>
-                        </div>
-                        <div>
-                            <button className="btn-primary">Log In</button>
+                        <div className="col-sm-5 m-0">
+                            <h5 className="text-light">Sign In</h5>
+                            <div className="form-group">
+                                <label htmlFor="email">Email</label>
+                                <input className="form-control" type="email" id="email" onChange={this.handleChange}></input>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="password">Password</label>
+                                <input className="form-control" type="password" id="password" onChange={this.handleChange}></input>
+                            </div>
+                            <div>
+                                <button className="btn-primary">Log In</button>
+                            </div>
                         </div>
                     </Form>
                 </Container>

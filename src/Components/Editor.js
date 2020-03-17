@@ -58,26 +58,33 @@ class Editor extends React.Component {
     }
 
     async loadDisease() {
+        pointList = []
         var int_map = []
         var coord
         var v
         try {
             //map doesn't work for some reason
+            //query the name and return that instead of getting them all
             db.collection('points').doc(this.state.load_layout).get().then(doc => {
                 for (let i = 0; i < doc.data().pointlist.length; i++) {
                     var x = doc.data().pointlist[i]
                     v = x.match(/\d+/g)
                     coord = { x: parseInt(v[0]), y: parseInt(v[1]) }
                     //console.log(coord)
-                    int_map[i] = coord                 
+                    int_map[i] = coord
                 }
+                //state change not causing a re-render
+                this.setState({
+                    state_point_list: int_map
+                })
             })
-            this.setState({
-                state_point_list: int_map
-            })
+
         }
         catch (error) {
-
+            this.setState({
+                state_point_list: []
+            })
+            console.log(error)
         }
 
         //this will just simply cause a re-render of the NumberList so it's cool
@@ -111,7 +118,7 @@ class Editor extends React.Component {
                         <Form className="p-3">
                             <Row>
                                 <Col sm="2">
-                                    <Form.Group controlId="editor.name">
+                                    <Form.Group>
                                         <Form.Label>Disease Name</Form.Label>
                                         <Form.Control id="d_name" onChange={this.handleChange} type="text" placeholder="Cerebral Palsy" />
                                     </Form.Group>

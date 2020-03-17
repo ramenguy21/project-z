@@ -7,6 +7,7 @@ import AppointmentForm from './Components/Appointment'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SignUp from './Components/Auth/SignUp';
 import NavBar from './NavBar'
+import DataTable from './DataTable'
 
 
 
@@ -24,6 +25,7 @@ function App() {
           <Route path="/appointment" component={AppointmentForm}></Route>
           <Route path="/signin" component={SignIn}></Route>
           <Route path="/signup" component={SignUp}></Route>
+          <Route path="/table" component={DataTable}></Route>
         </Switch>
       </div>
     </BrowserRouter>

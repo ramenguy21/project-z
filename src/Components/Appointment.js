@@ -14,6 +14,8 @@ class AppointmentForm extends React.Component {
         }
     }
 
+    //TODO ADD DATABASE FUNCTIONALITY LMAO
+
 
     render() {
         return (
@@ -22,9 +24,7 @@ class AppointmentForm extends React.Component {
                     <div class="row no-margin">
                         <div class="col-sm-7">
                             <div class="content">
-                                <h1>Hijama Therapy</h1>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus accusantium nostrum,
-                            eaque nemo ratione quae itaque natus. Minima, eius aperiam.</p>
+                                <h1>Dr Tasneem's Clinic</h1>
                             </div>
                         </div>
                         <div class="col-sm-5">

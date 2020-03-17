@@ -10,7 +10,7 @@ class SignUp extends React.Component {
         this.state = {
             email: '',
             password: '',
-            userName : ''
+            userName: ''
         }
     }
 
@@ -33,20 +33,22 @@ class SignUp extends React.Component {
                 <Container>
                     <Form onSubmit={this.handleSubmit}>
                         <h5 className="text-light">Sign Up</h5>
-                        <div className="form-group">
-                            <label htmlFor="email">Email</label>
-                            <input className="form-control" type="email" id="email" onChange={this.handleChange}></input>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="password">Password</label>
-                            <input className="form-control" type="password" id="password" onChange={this.handleChange}></input>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="userName">UserName</label>
-                            <input className="form-control" type="text" id="userName" onChange={this.handleChange}></input>
-                        </div>
-                        <div>
-                            <button className="btn-primary">SignUp</button>
+                        <div className="col-sm-5 m-0">
+                            <div className="form-group">
+                                <label htmlFor="email">Email</label>
+                                <input className="form-control" type="email" id="email" onChange={this.handleChange}></input>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="password">Password</label>
+                                <input className="form-control" type="password" id="password" onChange={this.handleChange}></input>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="userName">UserName</label>
+                                <input className="form-control" type="text" id="userName" onChange={this.handleChange}></input>
+                            </div>
+                            <div>
+                                <button className="btn-primary">SignUp</button>
+                            </div>
                         </div>
                     </Form>
                 </Container>
